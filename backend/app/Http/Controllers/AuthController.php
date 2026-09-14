@@ -29,4 +29,12 @@ class AuthController extends Controller
             'token' => $token,
             ],201);
  }
+
+    public function login(Request $request) {
+        
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+    }
 }
