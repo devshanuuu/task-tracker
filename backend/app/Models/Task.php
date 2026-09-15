@@ -27,5 +27,5 @@ class Task extends Model
     // The attributes that should be cast to native types.
     protected $casts = [
         'due_date' => 'date', 
-    ]
-} 
+    ];
+}
