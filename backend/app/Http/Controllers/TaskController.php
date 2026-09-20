@@ -7,11 +7,13 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    // Display a listing of the tasks for the authenticated user.
     public function index(Request $request) {
         $tasks = Task::where('user_id', $request->user()->id)->get(); // Retrieve tasks for the authenticated user
         return response()->json($tasks);
     }
 
+    // Store a newly created task in the database.
     public function store(Request $request)  {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -40,5 +42,66 @@ class TaskController extends Controller
            'message'=> 'Task created successfully',
            'task' => $task,],201);
     
-}
+    }
+
+    // Update the specified task in the database.
+    public function update(Request $request, $id) {
+        $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail(); // Ensure the task belongs to the authenticated user
+
+        $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'priority' => 'required|string',
+        'category' => 'required|string',
+        'energy_level' => 'required|string',
+        'estimated_minutes' => 'required|integer|min:1',
+        'due_date' => 'nullable|date',
+    ]);
+
+    $task->update([
+        'title' => $validated['title'],
+        'description' => $validated['description'] ?? null,
+        'priority' => $validated['priority'],
+        'category' => $validated['category'],
+        'energy_level' => $validated['energy_level'],
+        'estimated_minutes' => $validated['estimated_minutes'],
+        'due_date' => $validated['due_date'] ?? null,
+    ]);
+
+    return response()->json([
+        'message' => 'Task updated successfully',
+        'task' => $task,
+    ]);
+    }
+
+    // Remove the specified task from the database.
+    public function destroy(Request $request, $id) {
+        $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail(); // Ensure the task belongs to the authenticated user
+
+        $task->delete();
+
+        return response()->json([
+          'message' => 'Task deleted successfully',
+        ]);
+    }
+
+    // Update the status of the specified task in the database.
+    public function updateStatus(Request $request, $id)
+    {
+    $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+
+    $validated = $request->validate([
+        'status' => 'required|in:pending,in_progress,completed',
+        ]);
+
+    $task->update([
+        'status' => $validated['status'],
+        ]);
+
+    return response()->json([
+        'message' => 'Task status updated successfully',
+        'task' => $task,
+        ]);
+    }
+
 }
