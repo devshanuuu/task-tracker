@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('energy_level')->default('focus');
             $table->unsignedInteger('estimated_minutes'); // unsignedInteger for no negative values
-            $table->date('due_date')->nullable();
+            $table->date('due_date')->nullable(); // make due_date optional
              
             $table->timestamps();
         });
