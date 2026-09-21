@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-use app\Models\User;
+use App\Models\User;
+use App\Models\Note;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function notes() {
+        return $this->belongsToMany(Note::class);
     }
 
     // The attributes that can be mass assigned when creating or updating a task.

@@ -40,7 +40,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected function casts(): array // Cast the email_verified_at attribute to a datetime object and the password attribute to a hashed value
     {
         return [
             'email_verified_at' => 'datetime',
@@ -50,5 +50,9 @@ class User extends Authenticatable
 
     public function tasks() {
         return $this->hasMany(Task::class); // Define the relationship with the Task model
+    }
+
+    public function notes() {
+        return $this->hasMany(Note::class);
     }
 }
