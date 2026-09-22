@@ -13,6 +13,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/tasks', [TaskController::class, 'index']);
+    Route::get('/tasks/{id}', [TaskController::class, 'show']);
     Route::post('/tasks', [TaskController::class, 'store']);
     Route::put('/tasks/{id}', [TaskController::class, 'update']);
     Route::patch('/tasks/{id}', [TaskController::class, 'updateStatus']);
@@ -23,5 +24,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('/notes/{id}', [NoteController::class, 'update']);
     Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
     Route::patch('/notes/{id}/pin', [NoteController::class, 'togglePin']);
+
+    Route::get('/tasks/{id}/notes', [TaskController::class, 'notes']);
+    Route::post('/tasks/{id}/notes', [TaskController::class, 'attachNote']);
+    Route::delete('/tasks/{id}/notes/{noteId}', [TaskController::class, 'detachNote']);
+    
 
 }); 

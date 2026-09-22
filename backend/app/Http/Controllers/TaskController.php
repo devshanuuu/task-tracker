@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\Note;
 
 class TaskController extends Controller
 {
@@ -11,6 +12,12 @@ class TaskController extends Controller
     public function index(Request $request) {
         $tasks = Task::where('user_id', $request->user()->id)->get(); // Retrieve tasks for the authenticated user
         return response()->json($tasks);
+    }
+
+    // Display the specified task for the authenticated user.
+    public function show(Request $request, $id) {
+        $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        return response()->json($task);
     }
 
     // Store a newly created task in the database.
@@ -102,6 +109,48 @@ class TaskController extends Controller
         'message' => 'Task status updated successfully',
         'task' => $task,
         ]);
+    }
+
+
+    // List all notes attached to the specified task.
+    public function notes(Request $request, $id) {
+        $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+
+        $notes = $task->notes()->get(); // Retrieve all notes attached to the task by relationship in notes().
+
+        return response()->json($notes);
+    }
+
+    // Attach a note to the specified task.
+    public function attachNote(Request $request, $id) {
+    $task = Task::where('id', $id)
+        ->where('user_id', $request->user()->id)
+        ->firstOrFail();
+
+    $validated = $request->validate([
+        'note_id' => 'required|integer|exists:notes,id',
+        ]);
+
+    $note = Note::where('id', $validated['note_id'])
+        ->where('user_id', $request->user()->id)
+        ->firstOrFail();
+
+    $task->notes()->syncWithoutDetaching($note->id); // Attach the note to the task without detaching existing notes
+
+    return response()->json([
+        'message' => 'Note attached to task successfully',
+       ]);
+    }    
+
+    // Detach a note from the specified task.
+    public function detachNote(Request $request, $id, $noteId) {
+        $task = Task::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+
+        $task->notes()->detach($noteId);
+
+        return response()->json([
+        'message' => 'Note detached from task successfully',
+      ]);
     }
 
 }
