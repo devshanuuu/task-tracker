@@ -1,9 +1,8 @@
+import Login from './components/Login'
+
 function App() {
   return (
-    <div>
-      <h1>Smart Task Tracker</h1>
-      <p>Manage your tasks efficiently.</p>
-    </div>
+    <Login />
   )
 }
 
