@@ -1,0 +1,13 @@
+
+function Home() {
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    return (
+        <div>
+            <h1>Welcome, {user.name} 👋</h1>
+            <p>You are logged in</p>
+        </div>
+    )
+}
+
+export default Home

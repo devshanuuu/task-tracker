@@ -1,8 +1,16 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
+import Home from './components/Home'
 import Login from './components/Login'
 
 function App() {
   return (
-    <Login />
+    <BrowserRouter>
+       <Routes>
+          <Route path = "/login" element ={<Login />} />
+          <Route path = "/" element ={<ProtectedRoute><Home /></ProtectedRoute>} />
+       </Routes>
+    </BrowserRouter>
   )
 }
 
