@@ -109,3 +109,322 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/*********Task Tracker CSS***********/
+
+
+/* Dashboard layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7f8f5;
+  color: #26352c;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e9e3;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar branding */
+.sidebar-brand {
+  margin-bottom: 40px;
+}
+
+.sidebar-brand h2 {
+  font-size: 22px;
+  margin: 0;
+  color: #26352c;
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-nav p,
+.sidebar-bottom p {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #526256;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-nav p:hover,
+.sidebar-bottom p {
+  background-color: #edf3e9;
+  color: #34523b;
+  transform: scale(1.02);
+}
+
+.sidebar-nav p.active {
+  background-color: #e5eee2;
+  color: #34523b;
+  font-weight: 600;
+}
+
+/* Sidebar bottom section */
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Main content */
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+}
+
+
+/* Welcome banner */
+.welcome-banner {
+  min-height: 200px;
+  padding: 32px;
+  margin-bottom: 28px;
+  border-radius: 18px;
+  background: linear-gradient(110deg, #e6efe4, #f4e9d5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.welcome-banner p {
+  margin: 0;
+  color: #5f6f61;
+  font-size: 16px;
+}
+
+.welcome-banner h1 {
+  margin: 0;
+  color: #26352c;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+
+/* Tasks and Notes section */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+/* Individual action cards */
+.action-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e9e3;
+  border-radius: 16px;
+  padding: 28px;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(38, 53, 44, 0.08);
+}
+
+.action-card h2 {
+  margin: 0;
+  color: #26352c;
+  font-size: 22px;
+}
+
+.action-card p {
+  margin: 0;
+  color: #6b756d;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.action-card button {
+  margin-top: auto;
+  padding: 10px 16px;
+  background-color: #e5eee2;
+  color: #34523b;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* Dashboard overview section */
+.dashboard-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.task-overview h2,
+.upcoming-deadlines h2,
+.recent-notes h2 {
+  margin: 0 0 18px;
+  color: #26352c;
+  font-size: 22px;
+  text-align: left;
+}
+
+/* Four task statistic cards */
+.task-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e9e3;
+  border-radius: 14px;
+  padding: 22px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(38, 53, 44, 0.06);
+}
+
+.stat-card h3 {
+  margin: 0 0 12px;
+  color: #6b756d;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stat-card p {
+  margin: 0;
+  color: #26352c;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Upcoming deadlines and recent notes */
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.upcoming-deadlines,
+.recent-notes {
+  background-color: #ffffff;
+  border: 1px solid #e5e9e3;
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 180px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+
+.upcoming-deadlines:hover,
+.recent-notes:hover {
+  border-color: #d3dfcf;
+  box-shadow: 0 6px 16px rgba(38, 53, 44, 0.05);
+}
+
+
+.upcoming-deadlines p,
+.recent-notes p {
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* Responsive dashboard layout */
+@media (max-width: 1100px) {
+  .dashboard-content {
+    padding: 24px;
+  }
+
+  .task-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 180px;
+    padding: 20px 12px;
+  }
+
+  .dashboard-content {
+    padding: 18px;
+  }
+
+  .quick-actions,
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-banner {
+    padding: 24px;
+  }
+
+  .welcome-banner h1 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid #e5e9e3;
+  }
+
+  .sidebar-brand {
+    margin-bottom: 16px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sidebar-bottom {
+    margin-top: 12px;
+    flex-direction: row;
+  }
+
+  .task-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card p {
+    font-size: 24px;
+  }
+}
+

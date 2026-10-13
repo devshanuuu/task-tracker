@@ -6,8 +6,15 @@ function Register() {
     const[name, setName] = useState('')
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
+ 
     const[error, setError] =useState('')
     const navigate = useNavigate()
+
+    const passwordLength = password.length >= 8
+    const hasUppercase = /[A-Z]/.test(password)
+    const hasLowercase = /[a-z]/.test(password)
+    const hasNumber = /[0-9]/.test(password)
+    
 
     const handleSubmit = async(e) => {
         
@@ -25,10 +32,13 @@ function Register() {
 
         }catch(error) {
             console.log(error.response)
-            setError('Something went wrong, Please try again')
-        }
-        
 
+            if(error.response?.status === 422) {
+               setError(error.response.data.message)
+            }else {
+               setError('Something went wrong, Please try again')
+            }
+        }
 
     }
     
@@ -41,7 +51,12 @@ function Register() {
                 <input type = "text" placeholder = "Name" value = {name} onChange = {(e) => setName(e.target.value)}/>
                 <input type = "email" placeholder = "Email" value = {email} onChange = {(e) => setEmail(e.target.value)}/>
                 <input type = "password" placeholder = "Password" value = {password} onChange = {(e) => setPassword(e.target.value)}/>
-                <p> Password must be at least 8 characters and contain uppercase,lowercase, and a number.</p>
+                <div>
+                    <p>{passwordLength ? '✓' : '✗'} At least 8 Charcaters</p>
+                    <p>{hasUppercase ? '✓' : '✗'} One uppercase letter</p>
+                    <p>{hasLowercase ? '✓' : '✗'} One lowercase letter</p>
+                    <p>{hasNumber ? '✓' : '✗'} One number</p>
+                </div>
                 <button type = "submit">Create Account</button>
             </form>
             <p>Already have an account? <Link to ='/login'>Login</Link></p>
