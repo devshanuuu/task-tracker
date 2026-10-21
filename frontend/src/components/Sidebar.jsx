@@ -1,4 +1,23 @@
+import {useNavigate} from 'react-router-dom'
+import api from '../api/axios'
+
+
 function Sidebar() {
+    const navigate = useNavigate()
+
+    const handleLogout = async() => {
+        try {
+           await api.post('/logout')
+        } catch(error) {
+           console.error('Logout request failed:', error) 
+        } finally {
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          navigate('/login')
+        }
+    }
+    
+    
     return (
         <aside className = "sidebar">
             <div className = "sidebar-brand">
@@ -13,7 +32,7 @@ function Sidebar() {
 
             <div className="sidebar-bottom">
                 <p>Settings</p>
-                <p>Logout</p>
+                <p onClick = {handleLogout}>Logout</p>
             </div>
         </aside>
     )

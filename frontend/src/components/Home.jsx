@@ -4,14 +4,14 @@ import QuickActions from "./QuickActions"
 import DashboardOverview from "./DashboardOverview"
 
 function Home() {
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user') || 'null')
 
     return (
         <div className = "dashboard">
             <Sidebar />
 
             <main className = "dashboard-content">
-               <WelcomeBanner name = {user.name} />
+               <WelcomeBanner name = {user?.name || 'there'} />
                <QuickActions />
                <DashboardOverview />
             </main>

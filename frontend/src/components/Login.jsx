@@ -6,11 +6,13 @@ function Login() {
     const[email,setEmail] = useState('');
     const[password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const[loading, setLoading] =  useState(false);
     const navigate = useNavigate()
 
     const handleSubmit = async(e) => {
       e.preventDefault(); // Prevent the default form submission behavior
       setError('')
+      setLoading(true)
 
       try {
         const response = await api.post('/login', {email: email, password: password,})
@@ -28,6 +30,8 @@ function Login() {
         } else {
           setError('Something went wrong. Please try again')
         }
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -40,8 +44,8 @@ function Login() {
             <form onSubmit = {handleSubmit}>
               <input type = "email" placeholder = "Email" value = {email} onChange = {(e) => setEmail(e.target.value)}/>
               <input type = "password" placeholder = "Password" value = {password} onChange ={(e) => setPassword(e.target.value)}/>
-              <button type = "submit">
-                Login
+              <button type = "submit" disabled={loading}>
+                {loading?'Logging In' : 'Login'}
               </button>
             </form>
             

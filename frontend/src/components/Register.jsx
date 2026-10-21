@@ -8,6 +8,7 @@ function Register() {
     const[password, setPassword] = useState('')
  
     const[error, setError] =useState('')
+    const[loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const passwordLength = password.length >= 8
@@ -20,6 +21,7 @@ function Register() {
         
         e.preventDefault()
         setError('') // Clear any previous error
+        setLoading(true)
 
         try {
             const response = await api.post('/register', {name: name, email: email, password: password })
@@ -38,6 +40,8 @@ function Register() {
             }else {
                setError('Something went wrong, Please try again')
             }
+        } finally {
+            setLoading(false)
         }
 
     }
@@ -57,7 +61,9 @@ function Register() {
                     <p>{hasLowercase ? '✓' : '✗'} One lowercase letter</p>
                     <p>{hasNumber ? '✓' : '✗'} One number</p>
                 </div>
-                <button type = "submit">Create Account</button>
+                <button type = "submit" disabled = {loading}>
+                    {loading?'Creating...' : 'Create Account'}
+                </button>
             </form>
             <p>Already have an account? <Link to ='/login'>Login</Link></p>
         </div>
