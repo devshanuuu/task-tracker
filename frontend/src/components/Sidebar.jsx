@@ -1,9 +1,10 @@
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import api from '../api/axios'
 
 
 function Sidebar() {
     const navigate = useNavigate()
+    const loaction = useLocation() // Get the current location object
 
     const handleLogout = async() => {
         try {
@@ -25,8 +26,8 @@ function Sidebar() {
             </div>
 
             <nav className = "sidebar-nav">
-                <p className="active">Home</p>
-                <p>Tasks</p>
+                <p className= {location.pathname === '/' ? 'active' : ''} onclick = {() => navigate('/')}>Home</p>
+                <p className= {location.pathname === '/tasks' ? 'active' : ''} onClick = {() => navigate('/tasks')}>Tasks</p>
                 <p>Notes</p>
             </nav>
 

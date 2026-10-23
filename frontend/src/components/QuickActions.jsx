@@ -1,10 +1,14 @@
+import {useNavigate} from 'react-router-dom'
+
 function QuickActions() {
+    const navigate = useNavigate()
+    
     return (
         <section className = "quick-actions">
             <div className = "action-card">
                 <h2>My Tasks</h2>
                 <p>Organize your work and make progress.</p>
-                <button>View Tasks →</button>               
+                <button onClick = {() => navigate('/tasks')}>View Tasks →</button>               
             </div>
 
             <div className = "action-card">

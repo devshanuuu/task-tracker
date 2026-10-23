@@ -9,7 +9,6 @@ use App\Http\Controllers\NoteController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/tasks', [TaskController::class, 'index']);
@@ -28,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/tasks/{id}/notes', [TaskController::class, 'notes']);
     Route::post('/tasks/{id}/notes', [TaskController::class, 'attachNote']);
     Route::delete('/tasks/{id}/notes/{noteId}', [TaskController::class, 'detachNote']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
     
 
 }); 
