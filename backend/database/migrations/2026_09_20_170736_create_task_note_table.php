@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_note', function (Blueprint $table) {
-          $table->foreignId('task_id')->constrained()->onDelete('cascade');
+ Schema::create('task_note', function (Blueprint $table) {
+    $table->id();
 
-          $table->foreignId('note_id')->constrained()->onDelete('cascade');
+    $table->foreignId('task_id')->constrained()->onDelete('cascade');
+    $table->foreignId('note_id')->constrained()->onDelete('cascade');
 
-          $table->unique(['task_id', 'note_id']);
+    $table->unique(['task_id', 'note_id']);
 });
     }
 
